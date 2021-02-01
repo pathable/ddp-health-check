@@ -1,0 +1,16 @@
+{
+  "name": "ddp-health-check",
+  "description": "DDP health check for Meteor Galaxy containers",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.747.0",
+    "cross-fetch": "^3.0.5",
+    "dogapi": "^2.8.3",
+    "graphql-request": "^2.0.0",
+    "isomorphic-ws": "^4.0.1",
+    "simpleddp": "^2.2.4",
+    "slack": "^11.0.2",
+    "ws": "^7.3.1"
+  },
+  "devDependencies": {}
+}

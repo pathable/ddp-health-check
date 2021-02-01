@@ -1,0 +1,35 @@
+service: ddp-health-check
+app: ddp-health-check
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  memorySize: 256
+  timeout: 15
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "lambda:InvokeFunction"
+      Resource: "*"  
+  environment:
+    DDP_HEALTH_CHECK_APPS: ${param:DDP_HEALTH_CHECK_APPS, ""} 
+    GALAXY_API_KEY_US: ${param:GALAXY_API_KEY_US, ""}
+    GALAXY_API_KEY_EU: ${param:GALAXY_API_KEY_EU, ""}
+    GALAXY_API_KEY_AP: ${param:GALAXY_API_KEY_AP, ""}    
+    DATADOG_API_KEY: ${param:DATADOG_API_KEY, ""}
+    DATADOG_APP_KEY: ${param:DATADOG_APP_KEY, ""}
+    DDP_HEALTH_CHECK_SLACK_TOKEN: ${param:DDP_HEALTH_CHECK_SLACK_TOKEN, ""}
+    DDP_HEALTH_CHECK_SLACK_CHANNEL: ${param:DDP_HEALTH_CHECK_SLACK_CHANNEL, ""}
+    DDP_HEALTH_CHECK_KEY: ${param:DDP_HEALTH_CHECK_KEY, "ddp-health-check-key"}
+    DDP_HEALTH_CHECK_DATADOG_METRIC_NAME: ${param:DDP_HEALTH_CHECK_DATADOG_METRIC_NAME, "galaxy.container.ddp.latency"}
+
+functions:
+  triggerDDPHealthCheck:
+    name: triggerDDPHealthCheck
+    handler: functions/trigger-ddp-health-check.triggerDDPHealthCheck
+    events:
+      - schedule: rate(1 minute)
+  sendDDPHealthCheckRequest:
+    name: sendDDPHealthCheckRequest
+    handler: functions/send-ddp-health-check-request.sendDDPHealthCheckRequest
