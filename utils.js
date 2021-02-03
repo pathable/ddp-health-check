@@ -215,6 +215,17 @@ module.exports.triggerDDPHealthCheckForAppAsync = async appQueryPromise => {
     console.error(error);
 
     if (DDP_HEALTH_CHECK_SLACK_CHANNEL && DDP_HEALTH_CHECK_SLACK_TOKEN) {
+      // Skip Slack notification for rare networking glitches that prevents our
+      // health check Lambda from connecting to the Galaxy GraphQL API
+      if (
+        error.response.error &&
+        error.response.error.includes(
+          "502 Bad Gateway: Registered endpoints failed to handle the request"
+        )
+      ) {
+        return;
+      }
+            
       await new Slack({ token: DDP_HEALTH_CHECK_SLACK_TOKEN }).chat.postMessage(
         {
           channel: DDP_HEALTH_CHECK_SLACK_CHANNEL,
