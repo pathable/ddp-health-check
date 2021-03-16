@@ -3,7 +3,7 @@
   "description": "DDP health check for Meteor Galaxy containers",
   "private": true,
   "dependencies": {
-    "aws-sdk": "^2.747.0",
+    "aws-sdk": "2.864.0",
     "cross-fetch": "^3.0.5",
     "dogapi": "^2.8.3",
     "graphql-request": "^2.0.0",

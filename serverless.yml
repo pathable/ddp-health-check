@@ -23,6 +23,9 @@ provider:
     DDP_HEALTH_CHECK_SLACK_CHANNEL: ${param:DDP_HEALTH_CHECK_SLACK_CHANNEL, ""}
     DDP_HEALTH_CHECK_KEY: ${param:DDP_HEALTH_CHECK_KEY, "ddp-health-check-key"}
     DDP_HEALTH_CHECK_DATADOG_METRIC_NAME: ${param:DDP_HEALTH_CHECK_DATADOG_METRIC_NAME, "galaxy.container.ddp.latency"}
+  deploymentBucket:
+    name: ${param:DEPLOYMENT_BUCKET, "serverless-deployment-bucket"}
+    blockPublicAccess: true
 
 functions:
   triggerDDPHealthCheck:

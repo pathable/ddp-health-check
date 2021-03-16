@@ -7,3 +7,8 @@ jspm_packages
 
 # Settings
 settings.json
+
+# Webstorm
+**/.idea/*
+!.idea/runConfigurations
+!.idea/scopes
