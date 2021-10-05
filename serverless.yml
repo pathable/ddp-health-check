@@ -1,11 +1,12 @@
 service: ddp-health-check
-app: ddp-health-check
+app: devops
 
 provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
   memorySize: 256
+  stage: prod
   timeout: 15
   iamRoleStatements:
     - Effect: "Allow"
@@ -26,6 +27,12 @@ provider:
   deploymentBucket:
     name: ${param:DEPLOYMENT_BUCKET, "serverless-deployment-bucket"}
     blockPublicAccess: true
+
+custom:
+  enterprise:
+    collectLambdaLogs: false
+    disableAwsSpans: true
+    disableHttpSpans: true
 
 functions:
   triggerDDPHealthCheck:
